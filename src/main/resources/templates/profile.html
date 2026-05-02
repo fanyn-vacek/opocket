@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Profile</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/}">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a th:href="@{/logout}" class="btn-link">Log out</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="profile-container">
+        <div class="left-column">
+            <div class="content-box user-card">
+                <div class="profile-avatar">
+                    <!-- sem hodit cestu k pfp -->
+                    <img th:src="@{/images/profile.png}" alt="profile-picture">
+                </div>
+
+                <h2 th:text="${user.firstName} + ' ' + ${user.lastName}">Fanyn Vacek</h2>
+
+                <button class="club-btn">My Club</button>
+                <div class="divider"></div>
+                <div class="action-buttons">
+                    <a th:href="@{/event/add}" class="main-btn" style="text-decoration:none;">Create Race</a>
+                    <button class="main-btn">Join Race</button>
+                </div>
+                <div class="divider"></div>
+                <button class="edit-btn">Edit Profile</button>
+            </div>
+        </div>
+
+        <div class="right-column">
+            <div class="content-box">
+                <h3 class="box-title">Upcoming race</h3>
+                <div class="race-row">
+                    <div class="date-container">
+                        <span class="day">29</span>
+                        <span class="month">DEC</span>
+                    </div>
+                    <div class="race-info">
+                        <h4>Vánoční Kufrování</h4>
+                        <p>Chrast • Middle</p>
+                    </div>
+                    <div class="status-badge">Registered</div>
+                </div>
+            </div>
+            <div class="content-box">
+                <h3 class="box-title">Race history</h3>
+                <div class="history-list">
+                    <div class="history-row">
+                        <div class="date-container small-date">
+                            <span class="day">15</span>
+                            <span class="month">NOV</span>
+                        </div>
+                        <div class="race-info">
+                            <h4>Dušičkový závod</h4>
+                            <p>Skala • Klasická trať</p>
+                        </div>
+                        <div class="status-badge">
+                            <span class="category">H21</span>
+                            <span class="dot">•</span>
+                            <span class="place">5th</span>
+                        </div>
+                    </div>
+                    <div class="history-row">
+                        <div class="date-container small-date">
+                            <span class="day">27</span>
+                            <span class="month">OCT</span>
+                        </div>
+                        <div class="race-info">
+                            <h4>Oblastní žebříček</h4>
+                            <p>Chotěboř • Sprint</p>
+                        </div>
+                        <div class="status-badge">
+                            <span class="category">P</span>
+                            <span class="dot">•</span>
+                            <span class="place">2nd</span>
+                        </div>
+                    </div>
+                    <div class="history-row">
+                        <div class="date-container small-date">
+                            <span class="day">20</span>
+                            <span class="month">OCT</span>
+                        </div>
+                        <div class="race-info">
+                            <h4>Trénink SKOOB Chrast</h4>
+                            <p>Luže • 3</p>
+                        </div>
+                        <div class="status-badge">
+                            <span class="category">3</span>
+                            <span class="dot">•</span>
+                            <span class="place">18th</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="#" class="full-history">View full history</a>
+            </div>
+        </div>
+    </div>
+
+    </div>
+</main>
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-main">
+            <h3>O:Pocket</h3>
+            <p>Your ultimate orienteering tool.</p>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 O:Pocket. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
