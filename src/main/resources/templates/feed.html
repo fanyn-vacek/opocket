@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Event Feed</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/feed}">Races</a></li>
+        <li th:if="${session.loggedInUserId != null}"><a th:href="@{/profile}" class="btn-link">Profile</a></li>
+        <li th:if="${session.loggedInUserId != null}"><a th:href="@{/logout}" class="btn-link">Log out</a></li>
+        <li th:if="${session.loggedInUserId == null}"><a th:href="@{/}" class="btn-link">Log In</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="right-column" style="margin: auto; max-width: 800px; width: 100%;">
+        <div class="content-box">
+            <h3 class="box-title">Event Feed</h3>
+            <div class="history-list">
+                <div th:each="event : ${events}" class="history-row">
+                    <div class="date-container small-date">
+                        <span class="day" th:text="${#temporals.day(event.date)}">15</span>
+                        <span class="month" th:text="${#temporals.monthNameShort(event.date)}">NOV</span>
+                    </div>
+                    <div class="race-info">
+                        <h4 th:text="${event.name}">Event Name</h4>
+                        <p th:text="${event.location} + ' • ' + ${event.mapName}">Location • Map</p>
+                    </div>
+                    <div class="join-race-btn-container">
+                        <!-- Event is in the future or today -->
+                        <div th:if="${!event.date.isBefore(today)}">
+                            <!-- User is logged in -->
+                            <div th:if="${session.loggedInUserId != null}">
+                                <!-- Already registered -->
+                                <div th:if="${registeredEventIds.contains(event.id)}" class="status-badge registered">
+                                    Already Registered
+                                </div>
+                                <!-- Not registered yet -->
+                                <a th:unless="${registeredEventIds.contains(event.id)}" th:href="@{/event/join(eventId=${event.id})}" class="main-btn" style="text-decoration:none;">Join Race</a>
+                            </div>
+                            <!-- User is a guest -->
+                            <a th:if="${session.loggedInUserId == null}" th:href="@{/}" class="main-btn" style="text-decoration:none;">Log in to join</a>
+                        </div>
+                        <!-- Event has passed -->
+                        <div th:if="${event.date.isBefore(today)}" class="status-badge" style="background-color: #6c757d;">
+                            Event has passed
+                        </div>
+                    </div>
+                </div>
+                <div th:if="${events.isEmpty()}">
+                    <p>No events found.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-bottom">
+            <p>&copy; 2026 O:Pocket. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

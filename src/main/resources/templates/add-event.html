@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - New Event</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<main class="main-container">
+    <div class="login-box" style="max-width: 500px;">
+        <div class="box-header">
+            <h2>Configure New Event</h2>
+        </div>
+
+        <form th:action="@{/event/add}" method="post">
+            <div class="input-field-usr">
+                <label>Event Name</label>
+                <input type="text" name="name" placeholder="Enter the name of your event" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Location</label>
+                <input type="text" name="location" placeholder="Enter the location's name" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Date</label>
+                <input type="date" name="date" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Map Name</label>
+                <input type="text" name="mapName" placeholder="Enter the map's name or the map's ratio">
+            </div>
+
+            <button type="submit" class="login-button">Create Event</button>
+
+            <a th:href="@{/profile}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+                Cancel
+            </a>
+        </form>
+    </div>
+</main>
+</body>
+</html>

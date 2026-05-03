@@ -1,0 +1,585 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Rubik;
+    box-sizing: border-box;
+}
+
+.main-container {
+    background-image: url("../images/bck.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 100px 20px;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: white;
+    box-shadow: 0 10px 10px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ff6f30;
+    letter-spacing: 1px;
+    margin-right: 50px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    font-weight: 500;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: #ff5a12;
+}
+
+.nav-links .btn-link {
+    padding: 10px 20px;
+    background-color: #ff6f30;
+    color: white;
+    border-radius: 20px;
+    white-space: nowrap;
+    transition: background-color 0.2s ease;
+    outline: #ff6f30 solid 3px;
+    outline-offset: 2px;
+}
+
+.nav-links .btn-link:hover {
+    background-color: #ff5a12;
+    color: white;
+}
+
+.nav-links .btn-link:active {
+    opacity: 0.8;
+}
+
+.profile-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.left-column {
+    width: 350px;
+    flex-shrink: 0;
+}
+
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.content-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+}
+
+.user-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+    border: 4px solid white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.user-card h2 {
+    font-size: 24px;
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.club-btn {
+    background: transparent;
+    border: 2px solid #eee;
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: #666;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.2s ease;
+}
+
+.club-btn:hover {
+    border-color: #ff6f30;
+    color: #ff6f30;
+}
+
+.club-btn:active {
+    opacity: 0.8;
+}
+
+.divider {
+    width: 100%;
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+
+.action-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.main-btn {
+    width: 100%;
+    padding: 12px;
+    background-color: #ff6f30;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.main-btn:hover {
+    background-color: #ff5a12;
+}
+
+.main-btn:active {
+    opacity: 0.8;
+}
+
+.edit-btn {
+    font-size: 15px;
+    width: 100%;
+    padding: 10px;
+    background-color: transparent;
+    color: #999;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+    text-decoration: none;
+}
+
+.edit-btn:hover {
+    color: #ff6f30;
+    text-decoration: none;
+}
+
+.box-title {
+    font-size: 22px;
+    color: black;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.race-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.date-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+    line-height: 1.1;
+}
+
+.date-container .day {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff6f30;
+}
+
+.date-container .month {
+    font-size: 14px;
+    font-weight: 700;
+    color: black;
+    text-transform: uppercase;
+}
+
+.race-info h4 {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 4px;
+    font-weight: 600;
+}
+
+.race-info p {
+    font-size: 16px;
+    color: #777;
+}
+
+.status-badge {
+    margin-left: auto;
+    background-color: #ff6f30;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status-badge.registered {
+    background-color: #218838; /* Darker Green */
+}
+
+.unregister-container {
+    margin-left: auto;
+}
+
+.unregister-btn {
+    background-color: #ff6f30;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.unregister-btn:hover {
+    background-color: #ff5a12;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.join-race-btn-container {
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.date-container.small-date .day {
+    font-size: 24px;
+    color: #888;
+}
+
+.date-container.small-date .month {
+    font-size: 12px;
+    color: #aaa;
+}
+
+.full-history {
+    display: block;
+    text-align: center;
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #ff6f30;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.full-history:hover {
+    color: #ff5a12;
+    text-decoration: underline;
+}
+
+.footer {
+    background-color: rgba(26, 26, 26, 0.97);
+    color: white;
+    padding: 60px 0 20px 0;
+    width: 100%;
+    position: relative;
+}
+
+.footer-container {
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+    flex-wrap: wrap;
+}
+
+.footer-main {
+    width: 30%;
+    margin-bottom: 30px;
+}
+
+.footer-main h3 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.footer-main h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.footer-main p {
+    font-size: 14px;
+    color: #b3b3b3;
+    line-height: 1.2;
+}
+
+.footer-main ul {
+    list-style: none;
+}
+
+.footer-main ul li {
+    margin-bottom: 10px;
+}
+
+.footer-main ul li a {
+    color: #b3b3b3;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.footer-main ul li a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+.social-links a {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgba(255,255,255,0.1);
+    color: #ffffff;
+    border-radius: 50%;
+    margin-right: 10px;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.social-links a:hover {
+    background-color: #ff5a12;
+}
+
+.social-links a:active {
+    opacity: 0.8;
+}
+
+.footer-bottom {
+    margin-top: 40px;
+    padding-top: 20px;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Custom Radio Button Styles */
+.category-selection {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 0;
+}
+
+/* Hide the browser's default radio button */
+.category-selection input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin-right: 12px; /* Space between checkbox and text */
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* On mouse-over, add a grey background color */
+.category-selection:hover .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add an orange background */
+.category-selection input:checked ~ .checkmark {
+    background-color: #ff6f30;
+    border-color: #ff5a12;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot) when checked */
+.category-selection input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot) */
+.category-selection .checkmark:after {
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+}
+
+
+@media (max-width: 1024px) {
+    .main-container {
+        padding: 120px 20px 60px 20px;
+    }
+
+    .left-column {
+        width: 300px;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 15px 20px;
+    }
+
+    .nav-links {
+        gap: 15px;
+    }
+
+    .logo {
+        margin-right: 0;
+        font-size: 26px;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-column,
+    .right-column {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .footer {
+        padding-top: 40px;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-main {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .nav-links a {
+        font-size: 14px;
+    }
+
+    .nav-links .btn-link {
+        padding: 8px 15px;
+    }
+
+    .box-title {
+        font-size: 20px;
+    }
+
+    .footer-container {
+        padding: 0 20px;
+    }
+
+    .race-row {
+        gap: 10px;
+    }
+
+    .status-badge {
+        padding: 5px 10px;
+        font-size: 11px;
+    }
+}

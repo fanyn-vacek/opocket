@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Sign Up</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<main class="main-container">
+    <div class="register-box">
+        <div class="box-header">
+            <h2>Join us now!</h2>
+        </div>
+
+        <form th:action="@{/register}" method="post">
+            <div class="input-field">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="firstName" placeholder="Enter your name" required>
+            </div>
+            <div class="input-field">
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" name="lastName" placeholder="Enter your surname" required>
+            </div>
+            <div class="input-field">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" placeholder="Enter your e-mail" required>
+            </div>
+            <div class="input-field">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="input-field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Create a password" required>
+            </div>
+            <div class="input-field">
+                <label for="rep-pass">Confirm password</label>
+                <input type="password" id="rep-pass" placeholder="Enter your password again" required>
+            </div>
+
+            <button type="submit" class="register-button" style="width: 100%; border: none; cursor: pointer;">Sign Up</button>
+        </form>
+
+        <div class="box-footer">
+            <p>Already have an account? <a th:href="@{/}">Log In here.</a></p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">O:Pocket</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/}">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a th:href="@{/}" class="btn-link">Log In</a></li>
+        </ul>
+    </nav>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-bottom">
+            <p>&copy; 2026 O:Pocket.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

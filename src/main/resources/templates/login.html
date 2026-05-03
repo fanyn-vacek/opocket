@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Log In</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<main class="main-container">
+    <div class="login-box">
+        <div class="box-header">
+            <h2>Welcome back!</h2>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="input-field-usr">
+                <label for="username">Username or e-mail</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username or e-mail" value="retfsa" required>
+            </div>
+            <div class="input-field-pass">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" value="retfsa382" required>
+            </div>
+            <div class="forgot-password">
+                <a href="#">Forgot password?</a>
+            </div>
+
+            <button type="submit" class="login-button" style="width: 100%; border: none; cursor: pointer;">Log In</button>
+        </form>
+
+        <div class="box-footer">
+            <p>Don't have an account? <a th:href="@{/register}">Sign Up Now!</a></p>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">O:Pocket</div>
+        <ul class="nav-links">
+            <li><a th:href="@{/feed}">Races</a></li>
+            <li><a th:href="@{/register}" class="btn-link">Sign Up</a></li>
+        </ul>
+    </nav>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-bottom">
+            <p>&copy; 2026 O:Pocket.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
