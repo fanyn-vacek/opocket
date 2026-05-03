@@ -22,4 +22,7 @@ public class Registration {
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
+
+    private Integer durationInSeconds;
+    private String status;
 }

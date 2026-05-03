@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>O:Pocket - My Events</title>
+    <title>O:Pocket - My Registrations</title>
     <link rel="stylesheet" th:href="@{/css/profile.css}">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
 </head>
@@ -19,27 +19,29 @@
 <main class="main-container">
     <div class="right-column" style="margin: auto; max-width: 800px; width: 100%;">
         <div class="content-box">
-            <h3 class="box-title">My Organized Events</h3>
+            <h3 class="box-title">My Upcoming Registrations</h3>
             <div class="history-list">
-                <div th:each="event : ${events}" class="history-row">
+                <div th:each="registration : ${upcomingRegistrations}" class="history-row">
                     <div class="date-container small-date">
-                        <span class="day" th:text="${#temporals.day(event.date)}">15</span>
-                        <span class="month" th:text="${#temporals.monthNameShort(event.date)}">NOV</span>
+                        <span class="day" th:text="${#temporals.day(registration.event.date)}">15</span>
+                        <span class="month" th:text="${#temporals.monthNameShort(registration.event.date)}">NOV</span>
                     </div>
                     <div class="race-info">
-                        <h4 th:text="${event.name}">Event Name</h4>
-                        <p th:text="${event.location} + ' • ' + ${event.mapName}">Location • Map</p>
+                        <h4 th:text="${registration.event.name}">Event Name</h4>
+                        <p th:text="${registration.event.location} + ' • ' + ${registration.category.name}">Location • Category</p>
                     </div>
-                    <div class="race-actions">
-                        <div class="status-action-container">
-                            <a th:href="@{/event/manage-results/{eventId}(eventId=${event.id})}" class="main-btn join-btn-small">Manage</a>
-                        </div>
+                    <div class="unregister-container">
+                        <form th:action="@{/event/unregister}" method="post" style="margin: 0;">
+                            <input type="hidden" name="registrationId" th:value="${registration.id}" />
+                            <button type="submit" class="unregister-btn">Unregister</button>
+                        </form>
                     </div>
                 </div>
-                <div th:if="${events.isEmpty()}">
-                    <p>You have not created any events yet.</p>
+                <div th:if="${upcomingRegistrations.isEmpty()}">
+                    <p>You are not registered for any upcoming races.</p>
                 </div>
             </div>
+             <a th:href="@{/profile}" class="full-history" style="margin-top: 30px;">Back to Profile</a>
         </div>
     </div>
 </main>

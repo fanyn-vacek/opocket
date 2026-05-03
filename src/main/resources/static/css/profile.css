@@ -197,6 +197,14 @@
     opacity: 0.8;
 }
 
+.secondary-btn {
+    background-color: #6c757d;
+}
+
+.secondary-btn:hover {
+    background-color: #5a6268;
+}
+
 .edit-btn {
     font-size: 15px;
     width: 100%;
@@ -249,6 +257,10 @@
     text-transform: uppercase;
 }
 
+.race-info {
+    flex-grow: 1;
+}
+
 .race-info h4 {
     font-size: 18px;
     color: black;
@@ -262,7 +274,6 @@
 }
 
 .status-badge {
-    margin-left: auto;
     background-color: #ff6f30;
     color: white;
     padding: 6px 15px;
@@ -270,10 +281,15 @@
     font-size: 13px;
     font-weight: 600;
     white-space: nowrap;
+    text-align: center;
 }
 
 .status-badge.registered {
-    background-color: #218838; /* Darker Green */
+    background-color: #218838;
+}
+
+.status-badge.passed {
+    background-color: #6c757d;
 }
 
 .unregister-container {
@@ -311,9 +327,79 @@
     border-bottom: 1px solid #f0f0f0;
 }
 
-.join-race-btn-container {
+.race-title-and-result {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+}
+
+.race-title-and-result h4 {
+    margin-bottom: 0;
+}
+
+.result-badge {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 15px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.result-badge .place {
+    color: #ff6f30;
+}
+
+.result-badge .time {
+    color: #666;
+}
+
+.status-badge-red {
+    background-color: #dc3545;
+    color: white;
+}
+
+.race-actions {
     margin-left: auto;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.results-link-container {
+    width: 60px; /* Fixed width for the results link */
+    text-align: center;
+}
+
+.status-action-container {
+    width: 120px; /* Fixed width for the status/action button */
+    text-align: center;
+}
+
+.results-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ff6f30;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.results-link:hover {
+    text-decoration: underline;
+}
+
+.join-btn-small {
+    padding: 6px 15px;
+    font-size: 13px;
+    width: auto;
+    display: inline-block;
+    text-decoration: none;
 }
 
 .date-container.small-date .day {
@@ -425,6 +511,8 @@
 .footer-bottom {
     margin-top: 40px;
     padding-top: 20px;
+    border-top: 1px solid #333;
+    text-align: center;
 }
 
 .footer-bottom p {
@@ -501,6 +589,31 @@
     transform: translate(-50%, -50%);
 }
 
+.category-list-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #f9f9f9 !important;
+    padding: 8px 12px !important;
+    border-radius: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.delete-btn {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.delete-btn:hover {
+    background-color: #c82333 !important;
+}
+
 
 @media (max-width: 1024px) {
     .main-container {
@@ -562,7 +675,7 @@
         font-size: 14px;
     }
 
-    .nav-links .btn-link {
+    .btn-link {
         padding: 8px 15px;
     }
 

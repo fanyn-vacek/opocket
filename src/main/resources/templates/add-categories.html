@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>O:Pocket - Add Categories</title>
+    <link rel="stylesheet" th:href="@{/css/login.css(v=${@environment.getProperty('spring.application.version')})}" th:remove="all-but-first">
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 <main class="main-container">
@@ -35,14 +35,24 @@
             <button type="submit" class="login-button">Add Category</button>
         </form>
 
-        <div style="margin-top: 20px;">
+        <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
             <h3>Added Categories</h3>
-            <ul>
-                <li th:each="category : ${categories}" th:text="${category.name} + ' - ' + ${category.length} + 'km, ' + ${category.climbing} + 'm'"></li>
+            <ul style="list-style: none; padding: 0; margin-top: 10px;">
+                <li th:each="category : ${categories}" class="category-list-item">
+                    <span th:text="${category.name} + ' - ' + ${category.length} + 'km, ' + ${category.climbing} + 'm'"></span>
+                    <form th:action="@{/event/categories/delete}" method="post">
+                        <input type="hidden" name="categoryId" th:value="${category.id}" />
+                        <input type="hidden" name="eventId" th:value="${event.id}" />
+                        <button type="submit" class="delete-btn">Delete</button>
+                    </form>
+                </li>
+                <li th:if="${categories.isEmpty()}">
+                    <p>No categories defined yet.</p>
+                </li>
             </ul>
         </div>
 
-        <a th:href="@{/profile}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+        <a th:href="@{/my-events}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
             Finish
         </a>
     </div>

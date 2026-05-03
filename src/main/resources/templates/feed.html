@@ -32,24 +32,27 @@
                         <h4 th:text="${event.name}">Event Name</h4>
                         <p th:text="${event.location} + ' • ' + ${event.mapName}">Location • Map</p>
                     </div>
-                    <div class="join-race-btn-container">
-                        <!-- Event is in the future or today -->
-                        <div th:if="${!event.date.isBefore(today)}">
-                            <!-- User is logged in -->
-                            <div th:if="${session.loggedInUserId != null}">
-                                <!-- Already registered -->
-                                <div th:if="${registeredEventIds.contains(event.id)}" class="status-badge registered">
-                                    Already Registered
-                                </div>
-                                <!-- Not registered yet -->
-                                <a th:unless="${registeredEventIds.contains(event.id)}" th:href="@{/event/join(eventId=${event.id})}" class="main-btn" style="text-decoration:none;">Join Race</a>
-                            </div>
-                            <!-- User is a guest -->
-                            <a th:if="${session.loggedInUserId == null}" th:href="@{/}" class="main-btn" style="text-decoration:none;">Log in to join</a>
+                    <div class="race-actions">
+                        <div class="results-link-container">
+                            <a th:href="@{/event/results/{eventId}(eventId=${event.id})}" class="results-link">Results</a>
                         </div>
-                        <!-- Event has passed -->
-                        <div th:if="${event.date.isBefore(today)}" class="status-badge" style="background-color: #6c757d;">
-                            Event has passed
+                        <div class="status-action-container">
+                            <!-- Event is in the future or today -->
+                            <div th:if="${!event.date.isBefore(today)}">
+                                <!-- User is logged in -->
+                                <div th:if="${session.loggedInUserId != null}">
+                                    <div th:if="${registeredEventIds.contains(event.id)}" class="status-badge registered">
+                                        Registered
+                                    </div>
+                                    <a th:unless="${registeredEventIds.contains(event.id)}" th:href="@{/event/join(eventId=${event.id})}" class="main-btn join-btn-small">Join</a>
+                                </div>
+                                <!-- User is a guest -->
+                                <a th:if="${session.loggedInUserId == null}" th:href="@{/}" class="main-btn join-btn-small">Log In</a>
+                            </div>
+                            <!-- Event has passed -->
+                            <div th:if="${event.date.isBefore(today)}" class="status-badge passed">
+                                Passed
+                            </div>
                         </div>
                     </div>
                 </div>

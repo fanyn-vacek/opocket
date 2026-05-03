@@ -274,6 +274,31 @@
     color: #888;
 }
 
+.category-list-item {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    background-color: #f9f9f9 !important;
+    padding: 8px 12px !important;
+    border-radius: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.delete-btn {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 5px !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    cursor: pointer !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.delete-btn:hover {
+    background-color: #c82333 !important;
+}
+
 @media (max-width: 1024px) {
     .main-container {
         padding: 60px 20px;

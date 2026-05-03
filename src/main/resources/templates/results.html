@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 15px; margin-bottom: 30px; }
+        .results-table th, .results-table td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        .results-table th { background-color: #f2f2f2; }
+        .category-title { font-size: 20px; font-weight: 600; margin-top: 20px; border-bottom: 2px solid #ff6f30; padding-bottom: 5px; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/feed}">Races</a></li>
+        <li th:if="${session.loggedInUserId != null}"><a th:href="@{/profile}" class="btn-link">Profile</a></li>
+        <li th:if="${session.loggedInUserId == null}"><a th:href="@{/}" class="btn-link">Log In</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="content-box" style="width: 100%; max-width: 900px;">
+        <h3 class="box-title" th:text="'Results for: ' + ${event.name}">Results</h3>
+
+        <div th:each="catResult : ${categoryResults}">
+            <h4 class="category-title" th:text="${catResult.key.name}">Category Name</h4>
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Name</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reg, iterStat : ${catResult.value}">
+                        <td th:text="${iterStat.count}"></td>
+                        <td th:text="${reg.user.firstName} + ' ' + ${reg.user.lastName}"></td>
+                        <td th:text="${reg.durationInSeconds != null ? #numbers.formatInteger(reg.durationInSeconds / 60, 2) + ':' + #numbers.formatInteger(reg.durationInSeconds % 60, 2) : ''}"></td>
+                        <td th:text="${reg.status}"></td>
+                    </tr>
+                    <tr th:if="${catResult.value.isEmpty()}">
+                        <td colspan="4" style="text-align: center;">No results for this category yet.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${categoryResults.isEmpty()}">
+            <p>No categories or results found for this event.</p>
+        </div>
+
+        <a th:href="@{/feed}" class="full-history" style="margin-top: 30px;">Back to Event Feed</a>
+    </div>
+</main>
+</body>
+</html>

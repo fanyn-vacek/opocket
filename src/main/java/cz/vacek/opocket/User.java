@@ -18,8 +18,4 @@ public class User {
     private String email;
     private String password;
     private String registrationNumber;
-
-    @ManyToOne // FK
-    @JoinColumn(name = "club_id")
-    private Club club;
 }

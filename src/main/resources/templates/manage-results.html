@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Results</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <style>
+        .results-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .results-table th, .results-table td { padding: 8px; border: 1px solid #ddd; text-align: left; }
+        .results-table th { background-color: #f2f2f2; }
+        .results-table input[type='number'], .results-table select { width: 80px; padding: 5px; }
+        .results-table .save-btn { padding: 5px 10px; font-size: 12px; }
+        .manage-header { display: flex; justify-content: space-between; align-items: center; }
+    </style>
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/feed}">Races</a></li>
+        <li><a th:href="@{/profile}" class="btn-link">Profile</a></li>
+        <li><a th:href="@{/logout}" class="btn-link">Log out</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="content-box" style="width: 100%; max-width: 900px;">
+        <div class="manage-header">
+            <h3 class="box-title" th:text="'Manage Results for: ' + ${event.name}" style="margin-bottom: 0;">Manage Results</h3>
+            <a th:href="@{/event/categories(eventId=${event.id})}" class="main-btn" style="text-decoration:none; width: auto; padding: 8px 15px; font-size: 14px;">Manage Categories</a>
+        </div>
+
+        <table class="results-table">
+            <thead>
+                <tr>
+                    <th>Runner Name</th>
+                    <th>Category</th>
+                    <th>Minutes</th>
+                    <th>Seconds</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="reg : ${registrations}">
+                    <td th:text="${reg.user.firstName} + ' ' + ${reg.user.lastName}"></td>
+                    <td th:text="${reg.category.name}"></td>
+                    <form th:action="@{/event/save-single-result}" method="post">
+                        <input type="hidden" name="registrationId" th:value="${reg.id}" />
+                        <input type="hidden" name="eventId" th:value="${event.id}" />
+                        <td><input type="number" name="minutes" th:value="${reg.durationInSeconds != null ? reg.durationInSeconds / 60 : ''}" min="0"></td>
+                        <td><input type="number" name="seconds" th:value="${reg.durationInSeconds != null ? reg.durationInSeconds % 60 : ''}" min="0" max="59"></td>
+                        <td>
+                            <select name="status">
+                                <option value="OK" th:selected="${reg.status == 'OK'}">OK</option>
+                                <option value="DSQ" th:selected="${reg.status == 'DSQ'}">DSQ</option>
+                                <option value="DNF" th:selected="${reg.status == 'DNF'}">DNF</option>
+                            </select>
+                        </td>
+                        <td><button type="submit" class="main-btn save-btn">Save</button></td>
+                    </form>
+                </tr>
+                <tr th:if="${registrations.isEmpty()}">
+                    <td colspan="6" style="text-align: center;">No participants registered for this event yet.</td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/my-events}" class="full-history" style="margin-top: 30px;">Back to My Events</a>
+    </div>
+</main>
+</body>
+</html>

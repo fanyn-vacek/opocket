@@ -7,13 +7,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -40,7 +44,7 @@ public class HomeController {
     public String showFeed(Model model, HttpSession session) {
         List<Event> allEvents = (List<Event>) eventRepository.findAll();
         model.addAttribute("events", allEvents);
-        model.addAttribute("today", LocalDate.now()); // Add today's date to the model
+        model.addAttribute("today", LocalDate.now());
 
         Long userId = (Long) session.getAttribute("loggedInUserId");
         if (userId != null) {
@@ -73,6 +77,29 @@ public class HomeController {
         model.addAttribute("events", myEvents);
 
         return "my-events";
+    }
+
+    @GetMapping("/my-registrations")
+    public String showMyRegistrations(Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/";
+        }
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) {
+            return "redirect:/";
+        }
+
+        LocalDate today = LocalDate.now();
+        List<Registration> allRegistrations = registrationRepository.findByUser(user);
+
+        List<Registration> upcomingRegistrations = allRegistrations.stream()
+                .filter(reg -> !reg.getEvent().getDate().isBefore(today))
+                .sorted(Comparator.comparing(reg -> reg.getEvent().getDate()))
+                .collect(Collectors.toList());
+
+        model.addAttribute("upcomingRegistrations", upcomingRegistrations);
+        return "my-registrations";
     }
 
     // prihlaseni
@@ -113,14 +140,25 @@ public class HomeController {
                 .filter(reg -> !reg.getEvent().getDate().isBefore(today))
                 .collect(Collectors.toList());
 
-        List<Registration> pastRegistrationsFull = allRegistrations.stream()
+        List<PastRegistrationDTO> pastRegistrationsWithRank = new ArrayList<>();
+        List<Registration> pastRegistrations = allRegistrations.stream()
                 .filter(reg -> reg.getEvent().getDate().isBefore(today))
-                .sorted(Comparator.comparing((Registration reg) -> reg.getEvent().getDate()).reversed())
                 .collect(Collectors.toList());
 
+        for (Registration reg : pastRegistrations) {
+            int rank = 0;
+            if ("OK".equals(reg.getStatus()) && reg.getDurationInSeconds() != null) {
+                List<Registration> categoryResults = registrationRepository.findByCategoryIdAndStatusOrderByDurationInSecondsAsc(reg.getCategory().getId(), "OK");
+                rank = categoryResults.indexOf(reg) + 1;
+            }
+            pastRegistrationsWithRank.add(new PastRegistrationDTO(reg, rank));
+        }
+        
+        pastRegistrationsWithRank.sort(Comparator.comparing((PastRegistrationDTO dto) -> dto.getRegistration().getEvent().getDate()).reversed());
+
         model.addAttribute("upcomingRegistrations", upcomingRegistrations);
-        model.addAttribute("pastRegistrations", pastRegistrationsFull.stream().limit(3).collect(Collectors.toList()));
-        model.addAttribute("totalPastRaces", pastRegistrationsFull.size());
+        model.addAttribute("pastRegistrations", pastRegistrationsWithRank.stream().limit(3).collect(Collectors.toList()));
+        model.addAttribute("totalPastRaces", pastRegistrationsWithRank.size());
 
         return "profile";
     }
@@ -139,12 +177,23 @@ public class HomeController {
         LocalDate today = LocalDate.now();
         List<Registration> allRegistrations = registrationRepository.findByUser(user);
 
-        List<Registration> pastRegistrationsFull = allRegistrations.stream()
+        List<Registration> pastRegistrations = allRegistrations.stream()
                 .filter(reg -> reg.getEvent().getDate().isBefore(today))
-                .sorted(Comparator.comparing((Registration reg) -> reg.getEvent().getDate()).reversed())
                 .collect(Collectors.toList());
+
+        List<PastRegistrationDTO> pastRegistrationsWithRank = new ArrayList<>();
+        for (Registration reg : pastRegistrations) {
+            int rank = 0;
+            if ("OK".equals(reg.getStatus()) && reg.getDurationInSeconds() != null) {
+                List<Registration> categoryResults = registrationRepository.findByCategoryIdAndStatusOrderByDurationInSecondsAsc(reg.getCategory().getId(), "OK");
+                rank = categoryResults.indexOf(reg) + 1;
+            }
+            pastRegistrationsWithRank.add(new PastRegistrationDTO(reg, rank));
+        }
+
+        pastRegistrationsWithRank.sort(Comparator.comparing((PastRegistrationDTO dto) -> dto.getRegistration().getEvent().getDate()).reversed());
         
-        model.addAttribute("pastRegistrations", pastRegistrationsFull);
+        model.addAttribute("pastRegistrations", pastRegistrationsWithRank);
         return "race-history";
     }
 
@@ -272,6 +321,22 @@ public class HomeController {
         return "redirect:/event/categories?eventId=" + eventId;
     }
 
+    @Transactional
+    @PostMapping("/event/categories/delete")
+    public String deleteCategory(@RequestParam Long categoryId, @RequestParam Long eventId, HttpSession session) {
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/";
+        }
+
+        Event event = eventRepository.findById(eventId).orElse(null);
+        if (event != null && event.getOrganizer().getId().equals(userId)) {
+            event.getCategories().removeIf(category -> category.getId().equals(categoryId));
+        }
+
+        return "redirect:/event/categories?eventId=" + eventId;
+    }
+
     @GetMapping("/event/join")
     public String showJoinForm(@RequestParam Long eventId, Model model, HttpSession session) {
         if (session.getAttribute("loggedInUserId") == null) {
@@ -313,7 +378,7 @@ public class HomeController {
             registrationRepository.save(newRegistration);
         }
 
-        return "redirect:/profile";
+        return "redirect:/feed";
     }
 
     @PostMapping("/event/unregister")
@@ -372,5 +437,71 @@ public class HomeController {
         eventRepository.save(existingEvent);
 
         return "redirect:/my-events";
+    }
+
+    @GetMapping("/event/manage-results/{eventId}")
+    public String showManageResultsForm(@PathVariable Long eventId, Model model, HttpSession session) {
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/";
+        }
+
+        Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null || !event.getOrganizer().getId().equals(userId)) {
+            return "redirect:/my-events";
+        }
+
+        List<Registration> registrations = registrationRepository.findByEventId(eventId);
+        model.addAttribute("event", event);
+        model.addAttribute("registrations", registrations);
+        return "manage-results";
+    }
+
+    @Transactional
+    @PostMapping("/event/save-single-result")
+    public String saveSingleResult(@RequestParam Long registrationId,
+                                   @RequestParam(required = false) Integer minutes,
+                                   @RequestParam(required = false) Integer seconds,
+                                   @RequestParam String status,
+                                   @RequestParam Long eventId,
+                                   HttpSession session) {
+
+        Long userId = (Long) session.getAttribute("loggedInUserId");
+        if (userId == null) {
+            return "redirect:/";
+        }
+
+        Registration registration = registrationRepository.findById(registrationId).orElse(null);
+        if (registration != null && registration.getEvent().getOrganizer().getId().equals(userId)) {
+            if ("OK".equals(status) && minutes != null && seconds != null) {
+                registration.setDurationInSeconds((minutes * 60) + seconds);
+            } else {
+                registration.setDurationInSeconds(null);
+            }
+            registration.setStatus(status);
+        }
+
+        return "redirect:/event/manage-results/" + eventId;
+    }
+
+    @GetMapping("/event/results/{eventId}")
+    public String showResults(@PathVariable Long eventId, Model model) {
+        Event event = eventRepository.findById(eventId).orElse(null);
+        if (event == null) {
+            return "redirect:/feed";
+        }
+
+        List<Category> categories = categoryRepository.findByEventId(eventId);
+        Map<Category, List<Registration>> categoryResults = new LinkedHashMap<>();
+
+        for (Category category : categories) {
+            List<Registration> results = registrationRepository.findByCategoryIdAndStatusOrderByDurationInSecondsAsc(category.getId(), "OK");
+            categoryResults.put(category, results);
+        }
+
+        model.addAttribute("event", event);
+        model.addAttribute("categoryResults", categoryResults);
+
+        return "results";
     }
 }
