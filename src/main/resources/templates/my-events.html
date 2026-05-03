@@ -31,8 +31,9 @@
                         <p th:text="${event.location} + ' • ' + ${event.mapName}">Location • Map</p>
                     </div>
                     <div class="race-actions">
-                        <div class="status-action-container">
-                            <a th:href="@{/event/manage-results/{eventId}(eventId=${event.id})}" class="main-btn join-btn-small">Manage</a>
+                        <div class="status-action-container" style="display: flex; gap: 10px; justify-content: flex-end; width: auto;">
+                            <a th:href="@{/event/edit(eventId=${event.id})}" class="main-btn join-btn-small" style="width: auto; margin: 0;">Manage</a>
+                            <a th:href="@{/event/manage-results/{eventId}(eventId=${event.id})}" class="main-btn join-btn-small" style="width: auto; margin: 0;">Results</a>
                         </div>
                     </div>
                 </div>

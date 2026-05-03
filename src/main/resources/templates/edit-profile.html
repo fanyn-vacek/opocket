@@ -5,7 +5,8 @@
     <title>O:Pocket - Edit Profile</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <main class="main-container">
@@ -15,9 +16,9 @@
         </div>
 
         <form th:action="@{/profile/edit}" method="post" th:object="${user}">
-            <input type="hidden" th:field="*{id}" />
-            <input type="hidden" th:field="*{username}" />
-            <input type="hidden" th:field="*{password}" />
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{username}"/>
+            <input type="hidden" th:field="*{password}"/>
 
             <div class="input-field-usr">
                 <label>First Name</label>
@@ -34,7 +35,8 @@
 
             <button type="submit" class="login-button">Save Changes</button>
 
-            <a th:href="@{/profile}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+            <a th:href="@{/profile}"
+               style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
                 Cancel
             </a>
         </form>

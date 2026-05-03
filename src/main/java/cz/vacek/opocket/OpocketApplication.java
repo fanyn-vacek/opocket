@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OpocketApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OpocketApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(OpocketApplication.class, args);
+    }
 
 }

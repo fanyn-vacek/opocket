@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>O:Pocket - Event Feed</title>
     <link rel="stylesheet" th:href="@{/css/profile.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -34,20 +35,24 @@
                     </div>
                     <div class="race-actions">
                         <div class="results-link-container">
-                            <a th:href="@{/event/results/{eventId}(eventId=${event.id})}" class="results-link">Results</a>
+                            <a th:href="@{/event/results/{eventId}(eventId=${event.id})}"
+                               class="results-link">Results</a>
                         </div>
                         <div class="status-action-container">
                             <!-- Event is in the future or today -->
                             <div th:if="${!event.date.isBefore(today)}">
                                 <!-- User is logged in -->
                                 <div th:if="${session.loggedInUserId != null}">
-                                    <div th:if="${registeredEventIds.contains(event.id)}" class="status-badge registered">
+                                    <div th:if="${registeredEventIds.contains(event.id)}"
+                                         class="status-badge registered">
                                         Registered
                                     </div>
-                                    <a th:unless="${registeredEventIds.contains(event.id)}" th:href="@{/event/join(eventId=${event.id})}" class="main-btn join-btn-small">Join</a>
+                                    <a th:unless="${registeredEventIds.contains(event.id)}"
+                                       th:href="@{/event/join(eventId=${event.id})}" class="main-btn join-btn-small">Join</a>
                                 </div>
                                 <!-- User is a guest -->
-                                <a th:if="${session.loggedInUserId == null}" th:href="@{/}" class="main-btn join-btn-small">Log In</a>
+                                <a th:if="${session.loggedInUserId == null}" th:href="@{/}"
+                                   class="main-btn join-btn-small">Log In</a>
                             </div>
                             <!-- Event has passed -->
                             <div th:if="${event.date.isBefore(today)}" class="status-badge passed">

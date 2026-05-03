@@ -8,6 +8,8 @@ import java.util.List;
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
     List<Registration> findByUser(User user);
+
     List<Registration> findByEventId(Long eventId);
+
     List<Registration> findByCategoryIdAndStatusOrderByDurationInSecondsAsc(Long categoryId, String status);
 }

@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Join Race</title>
     <link rel="stylesheet" th:href="@{/css/profile.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <nav class="navbar">
@@ -20,7 +21,7 @@
     <div class="content-box" style="width: 100%; max-width: 600px;">
         <h3 class="box-title" th:text="'Join Race: ' + ${event.name}">Join Race</h3>
         <form th:action="@{/event/join}" method="post">
-            <input type="hidden" name="eventId" th:value="${event.id}" />
+            <input type="hidden" name="eventId" th:value="${event.id}"/>
 
             <div th:if="${categories.isEmpty()}">
                 <p>This event has no categories yet.</p>
@@ -30,7 +31,8 @@
                 <h4>Select a Category:</h4>
                 <div th:each="category : ${categories}" style="margin-top: 15px;">
                     <label class="category-selection">
-                        <input type="radio" th:id="'cat-' + ${category.id}" name="categoryId" th:value="${category.id}" required>
+                        <input type="radio" th:id="'cat-' + ${category.id}" name="categoryId" th:value="${category.id}"
+                               required>
                         <span class="checkmark"></span>
                         <span th:text="${category.name} + ' (' + ${category.length} + ' km, ' + ${category.climbing} + ' m)'">Category Name</span>
                     </label>

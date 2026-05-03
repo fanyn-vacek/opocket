@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>O:Pocket - Add Categories</title>
-    <link rel="stylesheet" th:href="@{/css/login.css(v=${@environment.getProperty('spring.application.version')})}" th:remove="all-but-first">
+    <link rel="stylesheet" th:href="@{/css/login.css(v=${@environment.getProperty('spring.application.version')})}"
+          th:remove="all-but-first">
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <main class="main-container">
@@ -18,7 +20,7 @@
         </div>
 
         <form th:action="@{/event/categories/add}" method="post">
-            <input type="hidden" name="eventId" th:value="${event.id}" />
+            <input type="hidden" name="eventId" th:value="${event.id}"/>
             <div class="input-field-usr">
                 <label>Name</label>
                 <input type="text" name="name" placeholder="Enter the category name" required>
@@ -41,8 +43,8 @@
                 <li th:each="category : ${categories}" class="category-list-item">
                     <span th:text="${category.name} + ' - ' + ${category.length} + 'km, ' + ${category.climbing} + 'm'"></span>
                     <form th:action="@{/event/categories/delete}" method="post">
-                        <input type="hidden" name="categoryId" th:value="${category.id}" />
-                        <input type="hidden" name="eventId" th:value="${event.id}" />
+                        <input type="hidden" name="categoryId" th:value="${category.id}"/>
+                        <input type="hidden" name="eventId" th:value="${event.id}"/>
                         <button type="submit" class="delete-btn">Delete</button>
                     </form>
                 </li>
@@ -52,7 +54,8 @@
             </ul>
         </div>
 
-        <a th:href="@{/my-events}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+        <a th:href="@{/my-events}"
+           style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
             Finish
         </a>
     </div>

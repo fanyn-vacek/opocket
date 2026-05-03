@@ -20,7 +20,7 @@ public class Event {
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
-    
+
     private String mapName;
 
     @ManyToOne

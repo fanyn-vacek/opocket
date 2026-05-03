@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>O:Pocket - My Registrations</title>
     <link rel="stylesheet" th:href="@{/css/profile.css}">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <nav class="navbar">
@@ -28,11 +29,12 @@
                     </div>
                     <div class="race-info">
                         <h4 th:text="${registration.event.name}">Event Name</h4>
-                        <p th:text="${registration.event.location} + ' • ' + ${registration.category.name}">Location • Category</p>
+                        <p th:text="${registration.event.location} + ' • ' + ${registration.category.name}">Location •
+                            Category</p>
                     </div>
                     <div class="unregister-container">
                         <form th:action="@{/event/unregister}" method="post" style="margin: 0;">
-                            <input type="hidden" name="registrationId" th:value="${registration.id}" />
+                            <input type="hidden" name="registrationId" th:value="${registration.id}"/>
                             <button type="submit" class="unregister-btn">Unregister</button>
                         </form>
                     </div>
@@ -41,7 +43,7 @@
                     <p>You are not registered for any upcoming races.</p>
                 </div>
             </div>
-             <a th:href="@{/profile}" class="full-history" style="margin-top: 30px;">Back to Profile</a>
+            <a th:href="@{/profile}" class="full-history" style="margin-top: 30px;">Back to Profile</a>
         </div>
     </div>
 </main>

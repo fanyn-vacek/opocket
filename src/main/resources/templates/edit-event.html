@@ -5,7 +5,8 @@
     <title>O:Pocket - Edit Event</title>
     <link rel="stylesheet" th:href="@{/css/login.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
 <main class="main-container">
@@ -15,7 +16,7 @@
         </div>
 
         <form th:action="@{/event/edit}" method="post" th:object="${event}">
-            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{id}"/>
             <div class="input-field-usr">
                 <label>Event Name</label>
                 <input type="text" th:field="*{name}" required>
@@ -47,10 +48,12 @@
                     <p>No categories defined yet.</p>
                 </li>
             </ul>
-            <a th:href="@{/event/categories(eventId=${event.id})}" class="login-button" style="text-decoration: none; margin-top: 15px; background-color: #6c757d;">Add / Manage Categories</a>
+            <a th:href="@{/event/categories(eventId=${event.id})}" class="login-button"
+               style="text-decoration: none; margin-top: 15px; background-color: #6c757d;">Add / Manage Categories</a>
         </div>
 
-        <a th:href="@{/my-events}" style="display:block; text-align:center; margin-top:30px; color:#666; text-decoration:none; font-size: 14px;">
+        <a th:href="@{/my-events}"
+           style="display:block; text-align:center; margin-top:30px; color:#666; text-decoration:none; font-size: 14px;">
             Back to My Events
         </a>
     </div>

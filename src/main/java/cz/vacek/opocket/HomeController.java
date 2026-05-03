@@ -5,20 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -130,7 +120,7 @@ public class HomeController {
         if (user == null) {
             return "redirect:/"; // User not found
         }
-        
+
         model.addAttribute("user", user);
 
         LocalDate today = LocalDate.now();
@@ -153,7 +143,7 @@ public class HomeController {
             }
             pastRegistrationsWithRank.add(new PastRegistrationDTO(reg, rank));
         }
-        
+
         pastRegistrationsWithRank.sort(Comparator.comparing((PastRegistrationDTO dto) -> dto.getRegistration().getEvent().getDate()).reversed());
 
         model.addAttribute("upcomingRegistrations", upcomingRegistrations);
@@ -192,7 +182,7 @@ public class HomeController {
         }
 
         pastRegistrationsWithRank.sort(Comparator.comparing((PastRegistrationDTO dto) -> dto.getRegistration().getEvent().getDate()).reversed());
-        
+
         model.addAttribute("pastRegistrations", pastRegistrationsWithRank);
         return "race-history";
     }
@@ -238,7 +228,9 @@ public class HomeController {
     }
 
     @GetMapping("/register")
-    public String showRegisterPage() { return "register"; }
+    public String showRegisterPage() {
+        return "register";
+    }
 
     @PostMapping("/register")
     public String processRegistration(@RequestParam String firstName,
@@ -247,8 +239,11 @@ public class HomeController {
                                       @RequestParam String username,
                                       @RequestParam String password) {
         User newUser = new User();
-        newUser.setFirstName(firstName); newUser.setLastName(lastName);
-        newUser.setEmail(email); newUser.setUsername(username); newUser.setPassword(password);
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setEmail(email);
+        newUser.setUsername(username);
+        newUser.setPassword(password);
         userRepository.save(newUser);
         return "redirect:/";
     }
@@ -310,10 +305,9 @@ public class HomeController {
                 cat.setName(name);
                 cat.setLength(Double.parseDouble(length));
                 cat.setClimbing(Integer.parseInt(climbing));
-                cat.setEvent(event); // Set the owning side
+                cat.setEvent(event);
 
-                event.getCategories().add(cat); // Add to the list in the parent
-                // No need to call save, @Transactional will handle it
+                event.getCategories().add(cat);
             } catch (NumberFormatException e) {
                 return "redirect:/event/categories?eventId=" + eventId + "&error=invalidNumberFormat";
             }
@@ -344,11 +338,11 @@ public class HomeController {
         }
         Event event = eventRepository.findById(eventId).orElse(null);
         if (event == null) {
-            return "redirect:/feed"; // or some error page
+            return "redirect:/feed";
         }
-        // Explicitly fetch categories from the database
+
         List<Category> categories = categoryRepository.findByEventId(eventId);
-        
+
         model.addAttribute("event", event);
         model.addAttribute("categories", categories);
         return "join-event";
@@ -363,7 +357,7 @@ public class HomeController {
 
         User user = userRepository.findById(userId).orElse(null);
         Event event = eventRepository.findById(eventId).orElse(null);
-        
+
         if (event != null && event.getDate().isBefore(LocalDate.now())) {
             return "redirect:/feed?error=eventHasPassed";
         }
@@ -389,8 +383,7 @@ public class HomeController {
         }
 
         Registration registration = registrationRepository.findById(registrationId).orElse(null);
-        
-        // Security check: Make sure the registration belongs to the logged-in user
+
         if (registration != null && registration.getUser().getId().equals(userId)) {
             registrationRepository.delete(registration);
         }
@@ -406,7 +399,7 @@ public class HomeController {
         }
 
         Event event = eventRepository.findById(eventId).orElse(null);
-        // Security check: only the organizer can edit the event
+
         if (event == null || !event.getOrganizer().getId().equals(userId)) {
             return "redirect:/my-events";
         }
@@ -423,12 +416,12 @@ public class HomeController {
         }
 
         Event existingEvent = eventRepository.findById(eventForm.getId()).orElse(null);
-        // Security check: only the organizer can edit the event
+
         if (existingEvent == null || !existingEvent.getOrganizer().getId().equals(userId)) {
             return "redirect:/my-events";
         }
 
-        // Update fields
+        // update
         existingEvent.setName(eventForm.getName());
         existingEvent.setLocation(eventForm.getLocation());
         existingEvent.setDate(eventForm.getDate());
