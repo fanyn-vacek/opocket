@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Add Categories</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<main class="main-container">
+    <div class="login-box" style="max-width: 500px;">
+        <div class="box-header">
+            <h2>Add categories for <span th:text="${event.name}">[Název závodu]</span></h2>
+        </div>
+
+        <form th:action="@{/event/categories/add}" method="post">
+            <input type="hidden" name="eventId" th:value="${event.id}" />
+            <div class="input-field-usr">
+                <label>Name</label>
+                <input type="text" name="name" placeholder="Enter the category name" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Length</label>
+                <input type="text" name="length" placeholder="Enter the category length" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Climbing</label>
+                <input type="text" name="climbing" placeholder="Enter the category climbing" required>
+            </div>
+
+            <button type="submit" class="login-button">Add Category</button>
+        </form>
+
+        <div style="margin-top: 20px;">
+            <h3>Added Categories</h3>
+            <ul>
+                <li th:each="category : ${categories}" th:text="${category.name} + ' - ' + ${category.length} + 'km, ' + ${category.climbing} + 'm'"></li>
+            </ul>
+        </div>
+
+        <a th:href="@{/profile}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+            Finish
+        </a>
+    </div>
+</main>
+</body>
+</html>

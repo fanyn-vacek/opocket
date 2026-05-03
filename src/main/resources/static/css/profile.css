@@ -272,6 +272,30 @@
     white-space: nowrap;
 }
 
+.status-badge.registered {
+    background-color: #218838; /* Darker Green */
+}
+
+.unregister-container {
+    margin-left: auto;
+}
+
+.unregister-btn {
+    background-color: #ff6f30;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 15px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.unregister-btn:hover {
+    background-color: #ff5a12;
+}
+
 .history-list {
     display: flex;
     flex-direction: column;
@@ -285,6 +309,11 @@
     padding-bottom: 15px;
     margin-bottom: 15px;
     border-bottom: 1px solid #f0f0f0;
+}
+
+.join-race-btn-container {
+    margin-left: auto;
+    flex-shrink: 0;
 }
 
 .date-container.small-date .day {
@@ -402,6 +431,76 @@
     font-size: 14px;
     color: #888;
 }
+
+/* Custom Radio Button Styles */
+.category-selection {
+    display: flex;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    font-size: 16px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 0;
+}
+
+/* Hide the browser's default radio button */
+.category-selection input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom radio button */
+.checkmark {
+    height: 22px;
+    width: 22px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    margin-right: 12px; /* Space between checkbox and text */
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+/* On mouse-over, add a grey background color */
+.category-selection:hover .checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add an orange background */
+.category-selection input:checked ~ .checkmark {
+    background-color: #ff6f30;
+    border-color: #ff5a12;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot) when checked */
+.category-selection input:checked ~ .checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot) */
+.category-selection .checkmark:after {
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    transform: translate(-50%, -50%);
+}
+
 
 @media (max-width: 1024px) {
     .main-container {

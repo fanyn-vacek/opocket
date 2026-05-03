@@ -20,11 +20,11 @@
         <form th:action="@{/login}" method="post">
             <div class="input-field-usr">
                 <label for="username">Username or e-mail</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username or e-mail" required>
+                <input type="text" id="username" name="username" placeholder="Enter your username or e-mail" value="retfsa" required>
             </div>
             <div class="input-field-pass">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" value="retfsa382" required>
             </div>
             <div class="forgot-password">
                 <a href="#">Forgot password?</a>
@@ -41,8 +41,7 @@
     <nav class="navbar">
         <div class="logo">O:Pocket</div>
         <ul class="nav-links">
-            <li><a th:href="@{/}">Home</a></li>
-            <li><a href="#">About</a></li>
+            <li><a th:href="@{/feed}">Races</a></li>
             <li><a th:href="@{/register}" class="btn-link">Sign Up</a></li>
         </ul>
     </nav>

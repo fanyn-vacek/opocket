@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Race History</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/feed}">Races</a></li>
+        <li><a th:href="@{/profile}" class="btn-link">Profile</a></li>
+        <li><a th:href="@{/logout}" class="btn-link">Log out</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="right-column" style="margin: auto; max-width: 800px; width: 100%;">
+        <div class="content-box">
+            <h3 class="box-title">Full Race History</h3>
+            <div class="history-list">
+                <div th:if="${!pastRegistrations.isEmpty()}" th:each="registration : ${pastRegistrations}" class="history-row">
+                    <div class="date-container small-date">
+                        <span class="day" th:text="${#temporals.day(registration.event.date)}">15</span>
+                        <span class="month" th:text="${#temporals.monthNameShort(registration.event.date)}">NOV</span>
+                    </div>
+                    <div class="race-info">
+                        <h4 th:text="${registration.event.name}">Dušičkový závod</h4>
+                        <p th:text="${registration.event.location} + ' • ' + ${registration.event.mapName}">Skala • Klasická trať</p>
+                    </div>
+                    <div class="status-badge">
+                        <span class="category" th:text="${registration.category.name}">H21</span>
+                        <span class="dot">•</span>
+                        <span class="place">5th</span>
+                    </div>
+                </div>
+                <div th:if="${pastRegistrations.isEmpty()}">
+                    <p>No past races found.</p>
+                </div>
+            </div>
+            <a th:href="@{/profile}" class="full-history" style="margin-top: 30px;">Back to Profile</a>
+        </div>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-bottom">
+            <p>&copy; 2025 O:Pocket. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

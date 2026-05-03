@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>O:Pocket - Edit Profile</title>
+    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<main class="main-container">
+    <div class="login-box" style="max-width: 500px;">
+        <div class="box-header">
+            <h2>Edit Profile</h2>
+        </div>
+
+        <form th:action="@{/profile/edit}" method="post" th:object="${user}">
+            <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{username}" />
+            <input type="hidden" th:field="*{password}" />
+
+            <div class="input-field-usr">
+                <label>First Name</label>
+                <input type="text" th:field="*{firstName}" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Last Name</label>
+                <input type="text" th:field="*{lastName}" required>
+            </div>
+            <div class="input-field-usr">
+                <label>Email</label>
+                <input type="email" th:field="*{email}" required>
+            </div>
+
+            <button type="submit" class="login-button">Save Changes</button>
+
+            <a th:href="@{/profile}" style="display:block; text-align:center; margin-top:20px; color:#666; text-decoration:none; font-size: 14px;">
+                Cancel
+            </a>
+        </form>
+    </div>
+</main>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Join Race</title>
+    <link rel="stylesheet" th:href="@{/css/profile.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="logo">O:Pocket</div>
+    <ul class="nav-links">
+        <li><a th:href="@{/feed}">Races</a></li>
+        <li th:if="${session.loggedInUserId != null}"><a th:href="@{/profile}" class="btn-link">Profile</a></li>
+        <li th:if="${session.loggedInUserId != null}"><a th:href="@{/logout}" class="btn-link">Log out</a></li>
+    </ul>
+</nav>
+
+<main class="main-container">
+    <div class="content-box" style="width: 100%; max-width: 600px;">
+        <h3 class="box-title" th:text="'Join Race: ' + ${event.name}">Join Race</h3>
+        <form th:action="@{/event/join}" method="post">
+            <input type="hidden" name="eventId" th:value="${event.id}" />
+
+            <div th:if="${categories.isEmpty()}">
+                <p>This event has no categories yet.</p>
+            </div>
+
+            <div th:unless="${categories.isEmpty()}">
+                <h4>Select a Category:</h4>
+                <div th:each="category : ${categories}" style="margin-top: 15px;">
+                    <label class="category-selection">
+                        <input type="radio" th:id="'cat-' + ${category.id}" name="categoryId" th:value="${category.id}" required>
+                        <span class="checkmark"></span>
+                        <span th:text="${category.name} + ' (' + ${category.length} + ' km, ' + ${category.climbing} + ' m)'">Category Name</span>
+                    </label>
+                </div>
+                <br>
+                <button type="submit" class="main-btn">Confirm Registration</button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-bottom">
+            <p>&copy; 2025 O:Pocket. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

@@ -4,17 +4,22 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "registrations")
 @Data
-public class Category {
+public class Registration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private double length;
-    private int climbing;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
     private Event event;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 }
