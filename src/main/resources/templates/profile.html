@@ -70,17 +70,15 @@
                             <span class="month" th:text="${#temporals.monthNameShort(dto.registration.event.date)}">NOV</span>
                         </div>
                         <div class="race-info">
-                            <div class="race-title-and-result">
-                                <h4 th:text="${dto.registration.event.name}">Dušičkový závod</h4>
-                                <div th:if="${dto.rank > 0}" class="result-badge">
-                                    <span class="place" th:text="${dto.rank} + '. place'">5th</span>
-                                    <span class="time" th:text="${#numbers.formatInteger(dto.registration.durationInSeconds / 60, 2) + ':' + #numbers.formatInteger(dto.registration.durationInSeconds % 60, 2)}">45:20</span>
-                                </div>
-                                <div th:unless="${dto.rank > 0}" class="result-badge status-badge-red">
-                                    <span th:text="${dto.registration.status}">DSQ</span>
-                                </div>
-                            </div>
+                            <h4 th:text="${dto.registration.event.name}">Dušičkový závod</h4>
                             <p th:text="${dto.registration.event.location} + ' • ' + ${dto.registration.category.name}">Skala • H21</p>
+                        </div>
+                        <div th:if="${dto.rank > 0}" class="result-badge">
+                            <span class="place" th:text="${dto.rank} + '. place'">5th</span>
+                            <span class="time" th:text="${#numbers.formatInteger(dto.registration.durationInSeconds / 60, 2) + ':' + #numbers.formatInteger(dto.registration.durationInSeconds % 60, 2)}">45:20</span>
+                        </div>
+                        <div th:unless="${dto.rank > 0}" class="result-badge status-badge-red">
+                            <span th:text="${dto.registration.status}">DSQ</span>
                         </div>
                     </div>
                     <div th:if="${pastRegistrations.isEmpty()}">

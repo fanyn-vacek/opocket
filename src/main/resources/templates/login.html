@@ -20,14 +20,11 @@
         <form th:action="@{/login}" method="post">
             <div class="input-field-usr">
                 <label for="username">Username or e-mail</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username or e-mail" value="retfsa" required>
+                <input type="text" id="username" name="username" placeholder="Enter your username or e-mail" value="dummy" required>
             </div>
             <div class="input-field-pass">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="Enter your password" value="12345" required>
-            </div>
-            <div class="forgot-password">
-                <a href="#">Forgot password?</a>
             </div>
 
             <button type="submit" class="login-button" style="width: 100%; border: none; cursor: pointer;">Log In</button>
